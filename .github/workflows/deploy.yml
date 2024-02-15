@@ -8,6 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Run a multi-line script
+      - name: Get artifact
         run: |
-          echo time to deploy!
+          echo Time to release ${GITHUB_REF#refs/*/}
