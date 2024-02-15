@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      TAG: ${{github.event.inputs.release_tag }} ||  ${GITHUB_REF#refs/*/}
+      TAG: ${{ github.event.inputs.release_tag || github.ref_name }}
     steps:
       - name: Get artifact
         run: |
