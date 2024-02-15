@@ -16,7 +16,7 @@ jobs:
       - name: Git tag
         run: | 
           git tag -a ${{env.TAG}} $GITHUB_SHA
-          git push origin --tags
+          git push origin ${{env.TAG}}
         
       - name: Build
         run: |
