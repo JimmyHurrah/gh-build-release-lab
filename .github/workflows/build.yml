@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TAG: "app-a-${{ github.run_number }}-${{ github.run_attempt }}"
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v3
       - name: Run a multi-line script
