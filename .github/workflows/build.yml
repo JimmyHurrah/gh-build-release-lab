@@ -14,6 +14,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Run a multi-line script
         run: |
-          echo "We're building! $TAG"
-          echo $TAG >> readme.md
-          gh release create $TAG readme.md --draft
+          echo We're building! ${{env.TAG}}
+          echo ${{env.TAG}} >> readme.md
+          gh release create ${{env.TAG}} readme.md --draft
