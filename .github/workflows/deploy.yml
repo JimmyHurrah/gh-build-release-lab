@@ -13,3 +13,6 @@ jobs:
       - name: Get artifact
         run: |
           echo Time to release ${{env.TAG}}
+          gh release download ${{env.TAG}} --pattern app-a.tar.gz
+          tar -xzvf app-a.tar.gz
+          ls
