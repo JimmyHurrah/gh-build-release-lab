@@ -16,4 +16,4 @@ jobs:
         run: |
           echo "We're building! ${{env.TAG}}"
           echo ${{env.TAG}} >> readme.md
-          gh release create ${{env.TAG}} readme.md --draft
+          gh release create ${{env.TAG}} readme.md --draft --generate-notes
