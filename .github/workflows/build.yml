@@ -12,7 +12,13 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v3
-      - name: Run a multi-line script
+      
+      - name: Git tag
+        run: | 
+          git tag -a ${{env.TAG}} $GITHUB_SHA
+          git push origin --tags
+        
+      - name: Build
         run: |
           echo "We're building! ${{env.TAG}}"
           echo ${{env.TAG}} >> readme.md
