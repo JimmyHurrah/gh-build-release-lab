@@ -7,8 +7,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      TAG: "app-a-${{ github.run_number }}-${{ github.run_attempt }}"
     steps:
       - uses: actions/checkout@v3
       - name: Run a multi-line script
         run: |
-          echo "We're building!"
+          echo "We're building! $TAG"
+          echo $TAG >> readme.md
+          gh release create $TAG readme.md --draft
