@@ -10,11 +10,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      TAG: ${{github.event.inputs.release_tag ||  ${GITHUB_REF#refs/*/}}}
+      TAG: ${{github.event.inputs.release_tag }} ||  ${GITHUB_REF#refs/*/}
     steps:
       - name: Get artifact
         run: |
           echo Time to release ${{env.TAG}}
           gh release download ${{env.TAG}} --pattern app-a.tar.gz
           tar -xzvf app-a.tar.gz
-          ls
+          cat app-a/readme.md
