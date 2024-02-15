@@ -23,8 +23,8 @@ jobs:
       - name: Build
         run: |
           echo "We're building! ${{env.TAG}}"
-          echo ${{env.TAG}} >> /app-a/readme.md
-          tar -czvf app-a.tar.gz /app-a
+          echo ${{env.TAG}} >> app-a/readme.md
+          tar -czvf app-a.tar.gz app-a
           gh release create ${{env.TAG}} app-a.tar.gz \
             --draft \
             --title "App A ${{ github.run_number }}-${{ github.run_attempt }}"  \
