@@ -3,11 +3,31 @@ name: Release Router
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        required: true
+            
+env: 
+  TAG: ${{github.event.inputs.tag || github.ref_name}}
     
 jobs:
   select-workflow:
     runs-on: ubuntu-latest
     steps:
-      - name: Select workflow
+      - name: Init Git
         run: |
-          echo Release me! ${{ github.ref_name }}
+          git init
+          git remote add origin ${{github.server_url}}/${{github.repository}}
+
+      - name: Release App A
+        if: ${{ startsWith(env.TAG, 'app_a') }}
+        run: |
+          echo "Deploying App A"
+          gh workflow run app_a-deploy.yml --ref $TAG --field tag=$TAG
+
+      - name: Release App B
+        if: ${{ startsWith(env.TAG, 'app_b' )}}
+        run: |
+          echo "Deploying App B"
+          gh workflow run app_b-deploy.yml --ref $TAG --field tag=$TAG
