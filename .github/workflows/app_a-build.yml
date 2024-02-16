@@ -1,39 +1,37 @@
 name: Build App A
 
 on:
+  workflow_dispatch:
   push:
     branches: ['main']
     paths: ['app_a/**']
-  workflow_dispatch:
-
+  
 env:
-  app_name: app_a
-  app_path: app_a
+  APP_NAME: app_a
+  APP_PATH: app_a
+  TAG: "app_a-${{ github.run_number }}-${{ github.run_attempt }}"
+  GH_TOKEN: ${{ github.token }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      TAG: "${{ env.app_name }}-${{ github.run_number }}-${{ github.run_attempt }}"
-      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v3
-      
       - name: Tag
         run: | 
           git config --global user.email "you@example.com"
           git config --global user.name "GitHub Action"
-          git tag -a ${{env.TAG}} $GITHUB_SHA -m "Auto-generated tag"
-          git push origin ${{env.TAG}}
+          git tag -a $TAG $GITHUB_SHA -m "Auto-generated tag"
+          git push origin $TAG
           
       - name: Package
         run: |           
-          echo ${{env.TAG}} >> ${{env.app_path}}/readme.md
-          tar -czvf ${{env.TAG}}.tar.gz ${{env.app_path}}
+          echo $TAG >> $APP_PATH/readme.md
+          tar -czvf $TAG.tar.gz $APP_PATH
           
       - name: Release
         run: |
           gh --version
-          gh release create ${{env.TAG}} ${{env.TAG}}.tar.gz \
+          gh release create $TAG $TAG.tar.gz \
             --generate-notes \
             --draft
