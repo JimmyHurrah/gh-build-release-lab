@@ -1,0 +1,26 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        required: true
+        
+env:
+  TAG: ${{ github.event.inputs.tag }}
+  GH_TOKEN: ${{ github.token }}  env:
+  APP_PATH: app_a
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Init Git
+        run: |
+          git init
+          git remote add origin ${{github.server_url}}/${{github.repository}}
+      - name: Get artifact
+        run: |
+          gh release download ${{env.TAG}} --pattern ${{env.TAG}}.tar.gz
+          tar -xzvf ${{env.TAG}}.tar.gz
+          cat ${{env.APP_PATH}}/readme.md

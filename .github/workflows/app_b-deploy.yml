@@ -8,7 +8,8 @@ on:
         
 env:
   TAG: ${{ github.event.inputs.tag }}
-  GH_TOKEN: ${{ github.token }}
+  GH_TOKEN: ${{ github.token }}  env:
+  APP_PATH: app_b
   
 jobs:
   build:
@@ -20,7 +21,6 @@ jobs:
           git remote add origin ${{github.server_url}}/${{github.repository}}
       - name: Get artifact
         run: |
-          echo Time to release ${{env.TAG}}
-          gh release download ${{env.TAG}} --pattern app-a.tar.gz
-          tar -xzvf app-a.tar.gz
-          cat app-a/readme.md
+          gh release download ${{env.TAG}} --pattern ${{env.TAG}}.tar.gz
+          tar -xzvf ${{env.TAG}}.tar.gz
+          cat ${{env.APP_PATH}}/readme.md

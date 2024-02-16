@@ -3,12 +3,12 @@ name: Build
 on:
   push:
     branches: ['main']
-    paths: ['app_a/**']
+    paths: ['app_b/**']
   workflow_dispatch:
 
   env:
-    app_name: app_a
-    app_path: app_a
+    app_name: app_b
+    app_path: app_b
 
 jobs:
   build:
