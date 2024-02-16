@@ -32,7 +32,7 @@ jobs:
       - name: Clean Previous Drafts
         run: |
           gh release list \
-            --json isDraft,tagName
+            --json isDraft,tagName \
             --jq '.[] | select(.isDraft and (.tagName | startswith($APP_NAME))) | .tagName' \
             | xargs -I {} echo would delete {}
       # | xargs -I {} gh release delete {}
