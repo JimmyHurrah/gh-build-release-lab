@@ -1,7 +1,5 @@
 name: Deploy
 on:
-  release:
-    types: [published]
   workflow_dispatch:
     inputs:
       release_tag:
