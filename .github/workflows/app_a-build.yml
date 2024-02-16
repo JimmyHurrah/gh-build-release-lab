@@ -23,7 +23,7 @@ jobs:
         run: | 
           git config --global user.email "you@example.com"
           git config --global user.name "GitHub Action"
-          git tag -a ${{env.TAG}} $GITHUB_SHA -m ""
+          git tag -a ${{env.TAG}} $GITHUB_SHA -m "Auto-generated tag"
           git push origin ${{env.TAG}}
           
       - name: Package
@@ -33,6 +33,7 @@ jobs:
           
       - name: Release
         run: |
+          gh --version
           gh release create ${{env.TAG}} ${{env.TAG}}.tar.gz \
             --generate-notes \
             --draft
