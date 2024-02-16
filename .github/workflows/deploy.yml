@@ -1,22 +1,23 @@
 name: Deploy
+
 on:
   workflow_dispatch:
     inputs:
-      release_tag:
+      tag:
         required: true
+        
+env:
+  TAG: ${{ github.event.inputs.tag }}
+  GH_TOKEN: ${{ github.token }}
+  
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      TAG: ${{ github.event.inputs.release_tag || github.ref_name }}
-      GH_TOKEN: ${{ github.token }}
     steps:
-    
       - name: Init Git
         run: |
           git init
           git remote add origin ${{github.server_url}}/${{github.repository}}
-          
       - name: Get artifact
         run: |
           echo Time to release ${{env.TAG}}
