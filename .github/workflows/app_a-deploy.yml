@@ -8,7 +8,7 @@ on:
         
 env:
   TAG: ${{ github.event.inputs.tag }}
-  GH_TOKEN: ${{ github.token }}  env:
+  GH_TOKEN: ${{ github.token }}
   APP_PATH: app_a
   
 jobs:
