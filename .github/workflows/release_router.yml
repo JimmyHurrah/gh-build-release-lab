@@ -1,3 +1,5 @@
+name: Release Router
+
 on:
   release:
     types: [published]
