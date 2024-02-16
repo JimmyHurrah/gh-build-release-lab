@@ -13,23 +13,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Git tag
+      - name: Tag
         run: | 
           git config --global user.email "you@example.com"
           git config --global user.name "GitHub Action"
           git tag -a ${{env.TAG}} $GITHUB_SHA -m ""
           git push origin ${{env.TAG}}
-        
-      - name: Build
-        run: |
-          echo "We're building! ${{env.TAG}}"
+          
+      - name: Package
+        run: |           
           echo ${{env.TAG}} >> app-a/readme.md
           tar -czvf app-a.tar.gz app-a
+          
+      - name: Release
+        run: |
           gh release create ${{env.TAG}} app-a.tar.gz \
-            --draft \
             --title "App A ${{ github.run_number }}-${{ github.run_attempt }}"  \
-            --generate-notes
-          echo "==="
-          echo "RELEASES"
-          echo "==="
-          gh release list
+            --generate-notes \
+            --draft
