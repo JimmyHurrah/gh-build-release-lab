@@ -13,6 +13,7 @@ jobs:
       TAG: ${{ github.event.inputs.release_tag || github.ref_name }}
       GH_TOKEN: ${{ github.token }}
     steps:
+      - uses: actions/checkout@v3 # needed to use gh cli?
       - name: Get artifact
         run: |
           echo Time to release ${{env.TAG}}
