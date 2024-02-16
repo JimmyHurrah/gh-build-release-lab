@@ -8,7 +8,8 @@ on:
       tag:
         required: true
             
-env: 
+env:
+  GH_TOKEN: ${{ github.token }}
   TAG: ${{github.event.inputs.tag || github.ref_name}}
     
 jobs:
