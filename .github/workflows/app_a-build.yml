@@ -35,7 +35,7 @@ jobs:
             --json isDraft,tagName \
             --jq '.[] | select(.isDraft and (.tagName | startswith($ENV.APP_NAME))) | .tagName' \
             | xargs -I {} echo would delete {}
-      # | xargs -I {} gh release delete {}
+      # | xargs -I {} gh release delete {} -y --cleanup-tag
 
       - name: Release
         run: |
