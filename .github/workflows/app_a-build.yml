@@ -28,7 +28,15 @@ jobs:
         run: |           
           echo $TAG >> $APP_PATH/readme.md
           tar -czvf $TAG.tar.gz $APP_PATH
-          
+
+      - name: Clean Previous Drafts
+        run: |
+          gh release list \
+            --json isDraft,tagName
+            --jq '.[] | select(.isDraft and (.tagName | startswith($APP_NAME))) | .tagName' \
+            | xargs -I {} echo would delete {}
+      # | xargs -I {} gh release delete {}
+
       - name: Release
         run: |
           gh --version
