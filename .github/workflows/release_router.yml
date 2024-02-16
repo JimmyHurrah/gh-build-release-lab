@@ -1,0 +1,11 @@
+on:
+  release:
+    types: [published]
+    
+jobs:
+  select-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Select workflow
+        run: |
+          echo Release me! ${{ github.ref_name }}
