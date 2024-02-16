@@ -6,9 +6,9 @@ on:
     paths: ['app_b/**']
   workflow_dispatch:
 
-  env:
-    app_name: app_b
-    app_path: app_b
+env:
+  app_name: app_b
+  app_path: app_b
 
 jobs:
   build:
