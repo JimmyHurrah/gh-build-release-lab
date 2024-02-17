@@ -23,10 +23,22 @@ jobs:
       - uses: actions/checkout@v3
         with: 
           ref: ${{env.TARGET}}
-          fetch-tags: true
+
+      - name: Build
+        run: echo Building stuff from sha:$TARGET
 
       - name: Package
         run: tar -czvf $TAG.tar.gz $APP_PATH
+      
+      - name: Back to main
+        run: git checkout main
+
+      - name: Tag
+        run: | 
+          git config --global user.email "you@example.com"
+          git config --global user.name "GitHub Action"
+          git tag -a $TAG $TARGET -m "Auto-generated tag"
+          git push origin $TAG
 
       # https://cli.github.com/manual/gh_release_list
       # https://cli.github.com/manual/gh_release_delete
@@ -41,6 +53,7 @@ jobs:
       - name: Release
         run: |
           echo Creating github release from $TARGET
+          gh --version
           gh release create $TAG $TAG.tar.gz \
             --target $TARGET \
             --generate-notes \
