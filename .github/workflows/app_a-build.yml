@@ -35,8 +35,7 @@ jobs:
           gh release list \
             --json isDraft,tagName \
             --jq '.[] | select(.isDraft and (.tagName | startswith($ENV.APP_NAME))) | .tagName' \
-            | xargs -I {} echo would delete {}
-      # | xargs -I {} gh release delete {} -y --cleanup-tag
+          | xargs -I {} gh release delete {} -y --cleanup-tag
 
       # https://cli.github.com/manual/gh_release_create
       - name: Release
