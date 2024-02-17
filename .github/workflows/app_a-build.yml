@@ -25,6 +25,9 @@ jobs:
           ref: ${{env.TARGET}}
           fetch-tags: true
 
+      - name: Git Status
+        run: git status 
+
       - name: Tag
         run: | 
           git config --global user.email "you@example.com"
