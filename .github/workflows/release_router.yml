@@ -34,4 +34,7 @@ jobs:
         if: ${{ startsWith(env.TAG, 'app_b' )}}
         run: |
           echo "Deploying App B"
-          gh workflow run app_b-deploy.yml --ref $TAG --field tag=$TAG
+          gh workflow run app_b-deploy.yml
+            --ref $TAG \
+            --field tag=$TAG \
+            --field environment=app_b-prod

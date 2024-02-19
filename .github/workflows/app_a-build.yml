@@ -5,6 +5,14 @@ on:
     inputs:
       target:
         required: false
+      deploy_dev:
+        description: Deploy artifact to dev
+        type: boolean
+        default: true
+      clean_previous_drafts:
+        description: Remove older draft releases
+        type: boolean
+        default: true
   push:
     branches: ['main']
     paths: ['app_a/**']
@@ -40,6 +48,7 @@ jobs:
       # https://cli.github.com/manual/gh_release_list
       # https://cli.github.com/manual/gh_release_delete
       - name: Clean Previous Drafts
+        if: github.event.inputs.clean_previous_drafts == true
         run: |
           gh release list \
             --json isDraft,tagName \
@@ -54,3 +63,12 @@ jobs:
             --target $TARGET \
             --generate-notes \
             --draft
+
+      - name: Deploy Dev
+        if: github.event.inputs.deploy_dev == true
+        run: |
+          echo "Deploying to Dev"
+          gh workflow run app_a-deploy.yml \
+            --ref $TAG \
+            --field tag=$TAG \
+            --field environment=app_b-dev
