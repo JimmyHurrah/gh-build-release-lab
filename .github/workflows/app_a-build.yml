@@ -29,9 +29,6 @@ jobs:
 
       - name: Package
         run: tar -czvf $TAG.tar.gz $APP_PATH
-      
-      - name: Back to main
-        run: git checkout main
 
       - name: Tag
         run: | 
