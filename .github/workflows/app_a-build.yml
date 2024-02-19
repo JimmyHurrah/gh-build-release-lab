@@ -8,11 +8,11 @@ on:
       deploy_dev:
         description: Deploy artifact to dev
         type: boolean
-        default: true
+        required: true
       clean_previous_drafts:
         description: Remove older draft releases
         type: boolean
-        default: true
+        required: true
   push:
     branches: ['main']
     paths: ['app_a/**']
