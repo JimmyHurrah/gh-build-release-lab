@@ -50,7 +50,6 @@ jobs:
       - name: Release
         run: |
           echo Creating github release from $TARGET
-          gh --version
           gh release create $TAG $TAG.tar.gz \
             --target $TARGET \
             --generate-notes \
