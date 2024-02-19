@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       target:
+        description: Branch, Tag or SHA
         required: false
       deploy_dev:
         description: Deploy artifact to dev
