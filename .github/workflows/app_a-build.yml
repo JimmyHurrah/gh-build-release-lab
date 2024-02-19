@@ -71,4 +71,4 @@ jobs:
           gh workflow run app_a-deploy.yml \
             --ref $TAG \
             --field tag=$TAG \
-            --field environment=app_b-dev
+            --field environment=app_a-dev
