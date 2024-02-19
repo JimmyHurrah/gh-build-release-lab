@@ -5,7 +5,13 @@ on:
     inputs:
       tag:
         required: true
-        
+      environment:
+        type: choice
+        description: Deploymnent target
+        required: true
+        options: 
+        - app_a-dev
+        - app_a-prod
 env:
   TAG: ${{ github.event.inputs.tag }}
   GH_TOKEN: ${{ github.token }}
@@ -14,7 +20,14 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
     steps:
+      - name: Secret
+        run: echo ${{ secrets.A_SECRET }}
+
+      - name: Variable
+        run: echo ${{ vars.A_VARIABLE }}
+        
       - name: Init Git
         run: |
           git init
