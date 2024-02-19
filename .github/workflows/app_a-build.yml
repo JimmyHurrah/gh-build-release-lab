@@ -48,7 +48,7 @@ jobs:
       # https://cli.github.com/manual/gh_release_list
       # https://cli.github.com/manual/gh_release_delete
       - name: Clean Previous Drafts
-        if: github.event.inputs.clean_previous_drafts == true
+        if: github.event.inputs.clean_previous_drafts
         run: |
           gh release list \
             --json isDraft,tagName \
@@ -65,7 +65,7 @@ jobs:
             --draft
 
       - name: Deploy Dev
-        if: github.event.inputs.deploy_dev == true
+        if: github.event.inputs.deploy_dev
         run: |
           echo "Deploying to Dev"
           gh workflow run app_a-deploy.yml \
