@@ -1,5 +1,9 @@
 # Yo!
 
+[Releases](https://github.com/JimmyHurrah/gh-build-release-lab/releases)
+[Actions](https://github.com/JimmyHurrah/gh-build-release-lab/actions)
+[Deployments](https://github.com/JimmyHurrah/gh-build-release-lab/deployments)
+
 ## Environments
 - secrets
 - variables
