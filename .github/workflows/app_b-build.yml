@@ -1,4 +1,4 @@
-name: Build App A
+name: Build App B
 
 on:
   workflow_dispatch:
@@ -16,12 +16,12 @@ on:
         default: false
   push:
     branches: ['main']
-    paths: ['app_a/**']
+    paths: ['app_b/**']
   
 env:
-  APP_NAME: app_a
-  APP_PATH: app_a
-  TAG: "app_a-${{ github.run_number }}.${{ github.run_attempt }}"
+  APP_NAME: app_b
+  APP_PATH: app_b
+  TAG: "app_b-${{ github.run_number }}.${{ github.run_attempt }}"
   GH_TOKEN: ${{ github.token }}
   TARGET: ${{ github.event.inputs.target || github.sha }}
 
