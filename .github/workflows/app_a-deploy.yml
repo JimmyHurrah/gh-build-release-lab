@@ -18,7 +18,7 @@ env:
   APP_PATH: app_a
   
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
     steps:
