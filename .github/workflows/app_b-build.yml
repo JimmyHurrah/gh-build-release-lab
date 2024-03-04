@@ -6,10 +6,6 @@ on:
       target:
         description: Branch, Tag or SHA
         required: false
-      deploy_dev:
-        description: Deploy artifact to dev
-        type: boolean
-        default: false
       clean_previous_drafts:
         description: Remove older draft releases
         type: boolean
@@ -21,14 +17,18 @@ on:
 env:
   APP_NAME: app_b
   APP_PATH: app_b
-  TAG: "app_b-${{ github.run_number }}.${{ github.run_attempt }}"
   GH_TOKEN: ${{ github.token }}
   TARGET: ${{ github.event.inputs.target || github.sha }}
+  RUN_ID: ${{ github.run_id }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate tag name
+        run: |
+          echo "TAG=$APP_NAME-$(date '+%Y%m%d').$RUN_ID" >> $GITHUB_ENV
+
       - uses: actions/checkout@v3
         with: 
           ref: ${{env.TARGET}}
@@ -64,12 +64,3 @@ jobs:
             --target $TARGET \
             --generate-notes \
             --draft
-
-      - name: Deploy Dev
-        if: github.event.inputs.deploy_dev == 'true'
-        run: |
-          echo "Deploying to Dev"
-          gh workflow run $APP_NAME-deploy.yml \
-            --ref $TAG \
-            --field tag=$TAG \
-            --field environment=$APP_NAME-dev
